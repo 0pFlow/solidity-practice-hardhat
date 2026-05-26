@@ -1,57 +1,109 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Solidity Practice — Hardhat
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+A collection of small Solidity smart contracts written as practice exercises while learning Ethereum development. The project is bootstrapped with **Hardhat 3** and uses **TypeScript** for configuration, scripts, and tests (Mocha + ethers v6), alongside Foundry-compatible Solidity tests.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## Contracts
 
-## Project Overview
+All contracts live in [`contracts/`](./contracts) and target Solidity `^0.8.28` / `0.8.31`.
 
-This example project includes:
+| Contract | Description |
+| --- | --- |
+| [`HelloWorld.sol`](./contracts/HelloWorld.sol) | Minimal starter contract that stores a `string message` and exposes a getter and setter — a classic Solidity "hello world". |
+| [`Counter.sol`](./contracts/Counter.sol) | Public `uint` counter with `inc()` and `incBy(uint)` functions, emitting an `Increment` event on each update. |
+| [`CustomErrors.sol`](./contracts/CustomErrors.sol) | Demonstrates Solidity custom errors (`NotOwner`, `TooLow`) for gas-efficient reverts in an owner-restricted `setNumber` function. |
+| [`AccessControl.sol`](./contracts/AccessControl.sol) | Simple role-based access control using `admin`, `supporter`, and `member` mappings, with an `onlyAdmin` modifier and a `RoleAssigned` event. |
+| [`Wallet.sol`](./contracts/Wallet.sol) | ETH wallet that tracks per-address balances, supports deposits via `receive()`, enforces a 1 ETH withdrawal cap, and protects against reentrancy with a lock modifier. |
+| [`RewardSystem.sol`](./contracts/RewardSystem.sol) | Membership and loyalty-points system: members can join, earn, transfer, and redeem points for rewards (`VIP`, `TICKETS`, `HOODIES`). Uses custom errors, admin-only grants, and explicitly rejects incoming ETH. |
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+A Foundry-style Solidity test for the counter is included as [`contracts/Counter.t.sol`](./contracts/Counter.t.sol).
 
-## Usage
+## Tech Stack
 
-### Running Tests
+- **Solidity** `0.8.28` / `0.8.31`
+- **Hardhat 3** — development environment, compiler, and runner
+- **TypeScript** — config, scripts, and integration tests
+- **Mocha + Chai** — TypeScript test runner and assertions
+- **ethers.js v6** — Ethereum interactions in tests and scripts
+- **Hardhat Ignition** — declarative deployments
+- **OpenZeppelin Contracts** — reusable building blocks
+- **forge-std** — Foundry-compatible Solidity testing utilities
 
-To run all the tests in the project, execute the following command:
+See [`package.json`](./package.json) for exact versions.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) **18+** (Node 20 LTS recommended)
+- [npm](https://www.npmjs.com/) (ships with Node.js)
+- Git
+
+## Getting Started
+
+### 1. Clone the repository
+
+```shell
+git clone https://github.com/0pFlow/solidity-practice-hardhat.git
+cd solidity-practice-hardhat
+```
+
+### 2. Install dependencies
+
+```shell
+npm install
+```
+
+### 3. Compile the contracts
+
+```shell
+npx hardhat compile
+```
+
+### 4. Run the tests
+
+Run every test (both Solidity and Mocha):
 
 ```shell
 npx hardhat test
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
+Or run them selectively:
 
 ```shell
 npx hardhat test solidity
 npx hardhat test mocha
 ```
 
-### Make a deployment to Sepolia
+## Deployment (optional)
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+The project ships with an example Hardhat Ignition module for the `Counter` contract.
 
-To run the deployment to a local chain:
+Deploy to a local simulated chain:
 
 ```shell
 npx hardhat ignition deploy ignition/modules/Counter.ts
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+Deploy to Sepolia (requires a funded account). Set the `SEPOLIA_PRIVATE_KEY` configuration variable via the `hardhat-keystore` plugin:
 
 ```shell
 npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
 npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
 ```
+
+> Never commit private keys. Use `hardhat-keystore` or environment variables.
+
+## Project Structure
+
+```
+.
+├── contracts/         # Solidity smart contracts (+ Foundry-style .t.sol tests)
+├── ignition/          # Hardhat Ignition deployment modules
+├── scripts/           # TypeScript scripts
+├── test/              # Mocha + ethers integration tests
+├── hardhat.config.ts  # Hardhat configuration
+├── tsconfig.json      # TypeScript configuration
+└── package.json
+```
+
+## License
+
+Contracts are individually marked with `SPDX-License-Identifier` headers (mostly **MIT**). See each file for details.
