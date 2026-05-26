@@ -1,5 +1,13 @@
 # Solidity Practice — Hardhat
 
+![Solidity](https://img.shields.io/badge/-Solidity-363636?logo=solidity&logoColor=white)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)
+![Ethereum](https://img.shields.io/badge/-Ethereum-3C3C3D?logo=ethereum&logoColor=white)
+![Hardhat](https://img.shields.io/badge/-Hardhat-FFF100?logo=hardhat&logoColor=black)
+[![Stars](https://img.shields.io/github/stars/0pFlow/solidity-practice-hardhat?style=flat)](https://github.com/0pFlow/solidity-practice-hardhat/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/0pFlow/solidity-practice-hardhat)](https://github.com/0pFlow/solidity-practice-hardhat/commits/main)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 A collection of small Solidity smart contracts written as practice exercises while learning Ethereum development. The project is bootstrapped with **Hardhat 3** and uses **TypeScript** for configuration, scripts, and tests (Mocha + ethers v6), alongside Foundry-compatible Solidity tests.
 
 ## Contracts
